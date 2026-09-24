@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>الوتاري للمفروشات</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#f7f7f7;
+    color:#222;
+}
+header{
+    background:linear-gradient(135deg,#f4c400,#123b73);
+    color:white;
+    padding:18px;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+.header{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+.logo span{display:block;font-size:13px}
+nav{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+button{
+    border:0;
+    border-radius:10px;
+    padding:11px 15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+.navbtn{
+    background:white;
+    color:#123b73;
+}
+.navbtn:hover{opacity:.9}
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+.hero{
+    margin-top:20px;
+    background:linear-gradient(135deg,#fff,#eef4ff);
+    border-radius:20px;
+    padding:35px 25px;
+    text-align:center;
+    border:1px solid #ddd;
+}
+.hero h1{
+    color:#123b73;
+    font-size:34px;
+    margin:5px 0;
+}
+.hero p{font-size:17px}
+.section-title{
+    margin-top:30px;
+    color:#123b73;
+}
+.search{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    margin:15px 0;
+    font-size:16px;
+}
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:18px;
+}
+.card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+    border:1px solid #eee;
+}
+.product-img{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+    background:#eee;
+}
+.card-body{padding:16px}
+.price{
+    color:#123b73;
+    font-size:20px;
+    font-weight:bold;
+}
+.old{
+    text-decoration:line-through;
+    color:#999;
+    font-size:14px;
+    margin-right:7px;
+}
+.discount{
+    background:#f4c400;
+    color:#111;
+    padding:4px 8px;
+    border-radius:7px;
+    font-size:12px;
+}
+.actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+.primary{
+    background:#123b73;
+    color:white;
+}
+.yellow{
+    background:#f4c400;
+    color:#111;
+}
+.danger{
+    background:#c62828;
+    color:white;
+}
+.page{display:none}
+.page.active{display:block}
+.form{
+    max-width:500px;
+    margin:25px auto;
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+.form input,.form textarea,.form select{
+    width:100%;
+    padding:13px;
+    margin:8px 0 14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+}
+.form textarea{min-height:100px}
+.notice{
+    padding:13px;
+    border-radius:10px;
+    background:#eef4ff;
+    margin:10px 0;
+}
+.cart-item{
+    background:white;
+    padding:15px;
+    margin:10px 0;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+footer{
+    margin-top:40px;
+    background:#123b73;
+    color:white;
+    padding:25px;
+    text-align:center;
+}
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#777;
+}
+.admin-box{
+    background:#fff8d6;
+    border:1px solid #f4c400;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+.small{font-size:13px;color:#777}
+@media(max-width:650px){
+    .header{flex-direction:column}
+    nav{justify-content:center}
+    .hero h1{font-size:27px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="header">
+    <div class="logo">
+        الوتاري للمفروشات
+        <span>مفروشات وأثاث بجودة وأناقة</span>
+    </div>
+
+    <nav>
+        <button class="navbtn" onclick="showPage('home')">الرئيسية</button>
+        <button class="navbtn" onclick="showPage('products')">المنتجات</button>
+        <button class="navbtn" onclick="showPage('cart')">السلة 🛒</button>
+        <button class="navbtn" id="loginBtn" onclick="showPage('login')">تسجيل الدخول</button>
+        <button class="navbtn" id="registerBtn" onclick="showPage('register')">إنشاء حساب</button>
+        <button class="navbtn" id="accountBtn" onclick="showPage('account')" style="display:none">حسابي</button>
+        <button class="navbtn" onclick="showPage('adminLogin')">المدير</button>
+    </nav>
+</div>
+</header>
+
+<main class="container">
+
+<!-- الرئيسية -->
+<section id="home" class="page active">
+    <div class="hero">
+        <h1>الوتاري للمفروشات</h1>
+        <p>بوابتك الإلكترونية للمفروشات والأثاث</p>
+        <button class="yellow" onclick="showPage('products')">
+            تصفح المنتجات
+        </button>
+    </div>
+
+    <h2 class="section-title">منتجاتنا</h2>
+    <div id="homeProducts" class="products"></div>
+</section>
+
+<!-- المنتجات -->
+<section id="products" class="page">
+    <h2 class="section-title">المنتجات</h2>
+
+    <input
+        id="searchInput"
+        class="search"
+        type="text"
+        placeholder="ابحث عن منتج..."
+        oninput="renderProducts()"
+    >
+
+    <div id="productsList" class="products"></div>
+</section>
+
+<!-- تسجيل الدخول -->
+<section id="login" class="page">
+<div class="form">
+    <h2>تسجيل الدخول</h2>
+
+    <label>رقم الهاتف</label>
+    <input id="loginPhone" type="tel" placeholder="أدخل رقم الهاتف">
+
+    <label>كلمة المرور</label>
+    <input id="loginPassword" type="password" placeholder="أدخل كلمة المرور">
+
+    <button class="primary" onclick="login()">دخول</button>
+
+    <p class="small">
+        ليس لديك حساب؟
+        <a href="#" onclick="showPage('register')">إنشاء حساب</a>
+    </p>
+
+    <div id="loginMsg"></div>
+</div>
+</section>
+
+<!-- إنشاء الحساب -->
+<section id="register" class="page">
+<div class="form">
+    <h2>إنشاء حساب جديد</h2>
+
+    <label>الاسم</label>
+    <input id="regName" type="text" placeholder="الاسم الكامل">
+
+    <label>رقم الهاتف</label>
+    <input id="regPhone" type="tel" placeholder="رقم الهاتف">
+
+    <div class="notice">
+        كلمة المرور الأولية ستكون رقم الهاتف، ويمكن تغييرها لاحقًا.
+    </div>
+
+    <button class="primary" onclick="register()">إنشاء الحساب</button>
+
+    <div id="registerMsg"></div>
+</div>
+</section>
+
+<!-- الحساب -->
+<section id="account" class="page">
+<div class="form">
+    <h2>حسابي</h2>
+    <div id="accountInfo"></div>
+
+    <hr>
+
+    <h3>تغيير كلمة المرور</h3>
+
+    <input id="newPassword" type="password" placeholder="كلمة المرور الجديدة">
+
+    <button class="primary" onclick="changePassword()">
+        تغيير كلمة المرور
+    </button>
+
+    <br><br>
+
+    <button class="danger" onclick="logout()">تسجيل الخروج</button>
+
+    <div id="accountMsg"></div>
+</div>
+</section>
+
+<!-- السلة -->
+<section id="cart" class="page">
+    <h2 class="section-title">سلة المشتريات</h2>
+
+    <div id="cartList"></div>
+
+    <div id="cartTotal"></div>
+
+    <br>
+
+    <button class="yellow" onclick="sendOrderToWhatsApp()">
+        طلب المنتجات عبر واتساب
+    </button>
+</section>
+
+<!-- دخول المدير -->
+<section id="adminLogin" class="page">
+<div class="form">
+    <h2>دخول المدير</h2>
+
+    <input id="adminCode" type="password" placeholder="رمز المدير">
+
+    <button class="primary" onclick="adminLogin()">دخول لوحة المدير</button>
+
+    <div id="adminLoginMsg"></div>
+</div>
+</section>
+
+<!-- لوحة المدير -->
+<section id="admin" class="page">
+
+<div class="admin-box">
+    <h2>لوحة إدارة الوتاري للمفروشات</h2>
+    <p>هذه المنطقة مخصصة للمدير.</p>
+</div>
+
+<div class="form">
+    <h3>إضافة منتج</h3>
+
+    <label>اسم المنتج</label>
+    <input id="productName" type="text">
+
+    <label>وصف المنتج</label>
+    <textarea id="productDescription"></textarea>
+
+    <label>السعر</label>
+    <input id="productPrice" type="number">
+
+    <label>الخصم %</label>
+    <input id="productDiscount" type="number" value="0">
+
+    <label>صورة المنتج</label>
+    <input id="productImage" type="file" accept="image/*">
+
+    <button class="primary" onclick="addProduct()">
+        إضافة المنتج
+    </button>
+
+    <div id="adminMsg"></div>
+</div>
+
+<h2 class="section-title">إدارة المنتجات</h2>
+
+<div id="adminProducts" class="products"></div>
+
+<br>
+
+<button class="danger" onclick="adminLogout()">
+    خروج المدير
+</button>
+
+</section>
+
+</main>
+
+<footer>
+    <strong>الوتاري للمفروشات</strong>
+    <br>
+    جميع الحقوق محفوظة
+</footer>
+
+<script>
+
+/* ==========================
+   إعدادات النظام
+========================== */
+
+const ORDER_WHATSAPP = "967774265042";
+
+/*
+إشعار التسجيل للمدير:
+لن يتم فتح واتساب للعميل.
+سيتم ربط الإرسال الخلفي لاحقًا بـ Supabase / API.
+*/
+const REGISTRATION_NOTIFICATION_NUMBER = "967775703983";
+
+/* رمز المدير المؤقت للنسخة التجريبية */
+const ADMIN_CODE = "7744";
+
+
+/* ==========================
+   البيانات
+========================== */
+
+let products = JSON.parse(localStorage.getItem("alwatari_products") || "null");
+
+if(!products){
+    products = [
+        {
+            id: 1,
+            name: "ستائر فاخرة",
+            description: "ستائر أنيقة وعصرية بجودة عالية، مناسبة لغرف النوم والمجالس.",
+            price: 45000,
+            discount: 10,
+            image: ""
+        }
+    ];
+
+    saveProducts();
+}
+
+let users = JSON.parse(localStorage.getItem("alwatari_users") || "[]");
+
+let cart = JSON.parse(localStorage.getItem("alwatari_cart") || "[]");
+
+let currentUser = JSON.parse(localStorage.getItem("alwatari_current_user") || "null");
+
+let adminLogged = localStorage.getItem("alwatari_admin") === "true";
+
+
+/* ==========================
+   الحفظ
+========================== */
+
+function saveProducts(){
+    localStorage.setItem("alwatari_products", JSON.stringify(products));
+}
+
+function saveUsers(){
+    localStorage.setItem("alwatari_users", JSON.stringify(users));
+}
+
+function saveCart(){
+    localStorage.setItem("alwatari_cart", JSON.stringify(cart));
+}
+
+
+/* ==========================
+   الصفحات
+========================== */
+
+function showPage(page){
+
+    document.querySelectorAll(".page").forEach(function(p){
+        p.classList.remove("active");
+    });
+
+    const target = document.getElementById(page);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    if(page === "products"){
+        renderProducts();
+    }
+
+    if(page === "cart"){
+        renderCart();
+    }
+
+    if(page === "account"){
+        renderAccount();
+    }
+
+    if(page === "admin"){
+        if(!adminLogged){
+            showPage("adminLogin");
+            return;
+        }
+        renderAdminProducts();
+    }
+}
+
+
+/* ==========================
+   المنتجات
+========================== */
+
+function renderProducts(){
+
+    const container = document.getElementById("productsList");
+
+    if(!container) return;
+
+    const search = (
+        document.getElementById("searchInput")?.value || ""
+    ).toLowerCase();
+
+    const filtered = products.filter(function(p){
+        return (
+            p.name.toLowerCase().includes(search) ||
+            p.description.toLowerCase().includes(search)
+        );
+    });
+
+    if(filtered.length === 0){
+        container.innerHTML = '<div class="empty">لا توجد منتجات.</div>';
+        return;
+    }
+
+    container.innerHTML = filtered.map(productCard).join("");
+}
+
+
+function renderHome(){
+
+    const container = document.getElementById("homeProducts");
+
+    if(!container) return;
+
+    container.innerHTML = products
+        .slice(0,4)
+        .map(productCard)
+        .join("");
+}
+
+
+function productCard(p){
+
+    const finalPrice = p.price - (p.price * p.discount / 100);
+
+    const image = p.image
+        ? `<img class="product-img" src="${p.image}" alt="${escapeHtml(p.name)}">`
+        : `<div class="product-img" style="display:flex;align-items:center;justify-content:center;color:#777">
+             صورة المنتج
+           </div>`;
+
+    return `
+    <div class="card">
+
+        ${image}
+
+        <div class="card-body">
+
+            <h3>${escapeHtml(p.name)}</h3>
+
+            <p>${escapeHtml(p.description)}</p>
+
+            <div>
+
+                <span class="price">
+                    ${formatNumber(finalPrice)} ريال
+                </span>
+
+                ${
+                    p.discount > 0
+                    ? `
+                    <span class="old">
+                        ${formatNumber(p.price)}
+                    </span>
+
+                    <span class="discount">
+                        خصم ${p.discount}%
+                    </span>
+                    `
+                    : ""
+                }
+
+            </div>
+
+            <div class="actions">
+
+                <button
+                    class="primary"
+                    onclick="addToCart(${p.id})"
+                >
+                    أضف للسلة
+                </button>
+
+                <button
+                    class="yellow"
+                    onclick="orderOne(${p.id})"
+                >
+                    طلب
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    `;
+}
+
+
+/* ==========================
+   السلة
+========================== */
+
+function addToCart(id){
+
+    const product = products.find(p => p.id === id);
+
+    if(!product) return;
+
+    const item = cart.find(x => x.id === id);
+
+    if(item){
+        item.quantity++;
+    }else{
+        cart.push({
+            id:id,
+            quantity:1
+        });
+    }
+
+    saveCart();
+
+    alert("تمت إضافة المنتج إلى السلة ✅");
+
+    renderCart();
+}
+
+
+function removeFromCart(id){
+
+    cart = cart.filter(x => x.id !== id);
+
+    saveCart();
+
+    renderCart();
+}
+
+
+function increaseQuantity(id){
+
+    const item = cart.find(x => x.id === id);
+
+    if(item){
+        item.quantity++;
+    }
+
+    saveCart();
+    renderCart();
+}
+
+
+function decreaseQuantity(id){
+
+    const item = cart.find(x => x.id === id);
+
+    if(!item) return;
+
+    item.quantity--;
+
+    if(item.quantity <= 0){
+        cart = cart.filter(x => x.id !== id);
+    }
+
+    saveCart();
+
+    renderCart();
+}
+
+
+function renderCart(){
+
+    const list = document.getElementById("cartList");
+    const totalBox = document.getElementById("cartTotal");
+
+    if(!list || !totalBox) return;
+
+    if(cart.length === 0){
+
+        list.innerHTML = `
+            <div class="empty">
+                السلة فارغة حاليًا 🛒
+            </div>
+        `;
+
+        totalBox.innerHTML = "";
+
+        return;
+    }
+
+    let total = 0;
+
+    list.innerHTML = cart.map(function(item){
+
+        const product = products.find(p => p.id === item.id);
+
+        if(!product) return "";
+
+        const price =
+            product.price -
+            (product.price * product.discount / 100);
+
+        const itemTotal = price * item.quantity;
+
+        total += itemTotal;
+
+        return `
+        <div class="cart-item">
+
+            <div>
+                <strong>${escapeHtml(product.name)}</strong>
+                <br>
+                ${formatNumber(price)} ريال
+                <br>
+                الكمية: ${item.quantity}
+            </div>
+
+            <div>
+
+                <button
+                    class="primary"
+                    onclick="increaseQuantity(${item.id})"
+                >+</button>
+
+                <button
+                    onclick="decreaseQuantity(${item.id})"
+                >−</button>
+
+                <button
+                    class="danger"
+                    onclick="removeFromCart(${item.id})"
+                >حذف</button>
+
+            </div>
+
+        </div>
+        `;
+
+    }).join("");
+
+    totalBox.innerHTML = `
+        <h3>
+            الإجمالي:
+            ${formatNumber(total)} ريال
+        </h3>
+    `;
+}
+
+
+/* ==========================
+   طلب منتج واحد
+========================== */
+
+function orderOne(id){
+
+    const product = products.find(p => p.id === id);
+
+    if(!product) return;
+
+    const price =
+        product.price -
+        (product.price * product.discount / 100);
+
+    const customerName =
+        currentUser ? currentUser.name : "عميل";
+
+    const customerPhone =
+        currentUser ? currentUser.phone : "غير مسجل";
+
+    const message =
+`طلب جديد من بوابة الوتاري للمفروشات
+
+اسم العميل: ${customerName}
+رقم الهاتف: ${customerPhone}
+
+المنتج: ${product.name}
+التفاصيل: ${product.description}
+السعر: ${formatNumber(price)} ريال
+الكمية: 1
+
+أرغب في طلب هذا المنتج.`;
+
+    openWhatsApp(message);
+}
+
+
+/* ==========================
+   إرسال السلة إلى واتساب
+========================== */
+
+function sendOrderToWhatsApp(){
+
+    if(cart.length === 0){
+
+        alert("السلة فارغة.");
+
+        return;
+    }
+
+    const customerName =
+        currentUser ? currentUser.name : "عميل";
+
+    const customerPhone =
+        currentUser ? currentUser.phone : "غير مسجل";
+
+    let message =
+`طلب جديد من بوابة الوتاري للمفروشات
+
+اسم العميل: ${customerName}
+رقم الهاتف: ${customerPhone}
+
+المنتجات:
+`;
+
+    let total = 0;
+
+    cart.forEach(function(item){
+
+        const product =
+            products.find(p => p.id === item.id);
+
+        if(!product) return;
+
+        const price =
+            product.price -
+            (product.price * product.discount / 100);
+
+        const itemTotal =
+            price * item.quantity;
+
+        total += itemTotal;
+
+        message +=
+`
+- ${product.name}
+  الكمية: ${item.quantity}
+  السعر: ${formatNumber(price)} ريال
+  الإجمالي: ${formatNumber(itemTotal)} ريال
+`;
+    });
+
+    message +=
+`
+الإجمالي الكلي:
+${formatNumber(total)} ريال
+
+أرغب في تأكيد الطلب.`;
+
+    openWhatsApp(message);
+}
+
+
+function openWhatsApp(message){
+
+    const url =
+        "https://wa.me/" +
+        ORDER_WHATSAPP +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.open(url,"_blank");
+}
+
+
+/* ==========================
+   تسجيل العميل
+========================== */
+
+function register(){
+
+    const name =
+        document.getElementById("regName").value.trim();
+
+    const phone =
+        document.getElementById("regPhone").value.trim();
+
+    const msg =
+        document.getElementById("registerMsg");
+
+    if(!name || !phone){
+
+        msg.innerHTML =
+            '<div class="notice">أدخل الاسم ورقم الهاتف.</div>';
+
+        return;
+    }
+
+    const exists =
+        users.find(u => u.phone === phone);
+
+    if(exists){
+
+        msg.innerHTML =
+            '<div class="notice">هذا الرقم مسجل مسبقًا.</div>';
+
+        return;
+    }
+
+    const user = {
+        id:Date.now(),
+        name:name,
+        phone:phone,
+
+        /* كلمة المرور الأولية = رقم الهاتف */
+        password:phone
+    };
+
+    users.push(user);
+
+    saveUsers();
+
+    currentUser = user;
+
+    localStorage.setItem(
+        "alwatari_current_user",
+        JSON.stringify(user)
+    );
+
+    /*
+    لا يتم فتح واتساب للعميل هنا.
+    الإشعار الحقيقي المخفي للمدير سيتم تنفيذه
+    لاحقًا من خلال Backend / Supabase.
+    */
+
+    msg.innerHTML =
+        '<div class="notice">تم إنشاء حسابك بنجاح ✅</div>';
+
+    updateHeader();
+
+    setTimeout(function(){
+        showPage("account");
+    },800);
+}
+
+
+/* ==========================
+   تسجيل الدخول
+========================== */
+
+function login(){
+
+    const phone =
+        document.getElementById("loginPhone").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const msg =
+        document.getElementById("loginMsg");
+
+    const user =
+        users.find(
+            u =>
+            u.phone === phone &&
+            u.password === password
+        );
+
+    if(!user){
+
+        msg.innerHTML =
+            '<div class="notice">رقم الهاتف أو كلمة المرور غير صحيحة.</div>';
+
+        return;
+    }
+
+    currentUser = user;
+
+    localStorage.setItem(
+        "alwatari_current_user",
+        JSON.stringify(user)
+    );
+
+    msg.innerHTML =
+        '<div class="notice">تم تسجيل الدخول بنجاح ✅</div>';
+
+    updateHeader();
+
+    setTimeout(function(){
+        showPage("account");
+    },500);
+}
+
+
+/* ==========================
+   الحساب
+========================== */
+
+function renderAccount(){
+
+    const box =
+        document.getElementById("accountInfo");
+
+    if(!currentUser){
+
+        box.innerHTML =
+            '<div class="notice">يجب تسجيل الدخول أولًا.</div>';
+
+        return;
+    }
+
+    box.innerHTML = `
+        <p><strong>الاسم:</strong> ${escapeHtml(currentUser.name)}</p>
+        <p><strong>رقم الهاتف:</strong> ${escapeHtml(currentUser.phone)}</p>
+    `;
+}
+
+
+function changePassword(){
+
+    if(!currentUser) return;
+
+    const newPassword =
+        document.getElementById("newPassword").value;
+
+    const msg =
+        document.getElementById("accountMsg");
+
+    if(newPassword.length < 4){
+
+        msg.innerHTML =
+            '<div class="notice">كلمة المرور يجب أن تكون 4 أحرف أو أرقام على الأقل.</div>';
+
+        return;
+    }
+
+    const user =
+        users.find(u => u.id === currentUser.id);
+
+    if(!user) return;
+
+    user.password = newPassword;
+
+    currentUser = user;
+
+    saveUsers();
+
+    localStorage.setItem(
+        "alwatari_current_user",
+        JSON.stringify(user)
+    );
+
+    msg.innerHTML =
+        '<div class="notice">تم تغيير كلمة المرور بنجاح ✅</div>';
+
+    document.getElementById("newPassword").value = "";
+}
+
+
+function logout(){
+
+    currentUser = null;
+
+    localStorage.removeItem("alwatari_current_user");
+
+    updateHeader();
+
+    showPage("login");
+}
+
+
+/* ==========================
+   المدير
+========================== */
+
+function adminLogin(){
+
+    const code =
+        document.getElementById("adminCode").value;
+
+    const msg =
+        document.getElementById("adminLoginMsg");
+
+    if(code !== ADMIN_CODE){
+
+        msg.innerHTML =
+            '<div class="notice">رمز المدير غير صحيح.</div>';
+
+        return;
+    }
+
+    adminLogged = true;
+
+    localStorage.setItem(
+        "alwatari_admin",
+        "true"
+    );
+
+    showPage("admin");
+}
+
+
+function adminLogout(){
+
+    adminLogged = false;
+
+    localStorage.removeItem("alwatari_admin");
+
+    showPage("home");
+}
+
+
+/* ==========================
+   إضافة منتج
+========================== */
+
+function addProduct(){
+
+    if(!adminLogged){
+
+        showPage("adminLogin");
+
+        return;
+    }
+
+    const name =
+        document.getElementById("productName").value.trim();
+
+    const description =
+        document.getElementById("productDescription").value.trim();
+
+    const price =
+        Number(document.getElementById("productPrice").value);
+
+    const discount =
+        Number(document.getElementById("productDiscount").value || 0);
+
+    const file =
+        document.getElementById("productImage").files[0];
+
+    const msg =
+        document.getElementById("adminMsg");
+
+    if(!name || !price){
+
+        msg.innerHTML =
+            '<div class="notice">أدخل اسم المنتج والسعر.</div>';
+
+        return;
+    }
+
+    function finish(image){
+
+        products.push({
+            id:Date.now(),
+            name:name,
+            description:description,
+            price:price,
+            discount:discount,
+            image:image || ""
+        });
+
+        saveProducts();
+
+        msg.innerHTML =
+            '<div class="notice">تمت إضافة المنتج بنجاح ✅</div>';
+
+        document.getElementById("productName").value = "";
+        document.getElementById("productDescription").value = "";
+        document.getElementById("productPrice").value = "";
+        document.getElementById("productDiscount").value = "0";
+        document.getElementById("productImage").value = "";
+
+        renderAdminProducts();
+        renderProducts();
+        renderHome();
+    }
+
+    if(file){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            finish(e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+
+    }else{
+
+        finish("");
+    }
+}
+
+
+/* ==========================
+   منتجات المدير
+========================== */
+
+function renderAdminProducts(){
+
+    const container =
+        document.getElementById("adminProducts");
+
+    if(!container) return;
+
+    if(products.length === 0){
+
+        container.innerHTML =
+            '<div class="empty">لا توجد منتجات.</div>';
+
+        return;
+    }
+
+    container.innerHTML =
+        products.map(function(p){
+
+            return `
+            <div class="card">
+
+                ${
+                    p.image
+                    ? `<img class="product-img" src="${p.image}">`
+                    : `<div class="product-img" style="display:flex;align-items:center;justify-content:center">لا توجد صورة</div>`
+                }
+
+                <div class="card-body">
+
+                    <h3>${escapeHtml(p.name)}</h3>
+
+                    <p>${escapeHtml(p.description)}</p>
+
+                    <p class="price">
+                        ${formatNumber(p.price)} ريال
+                    </p>
+
+                    <button
+                        class="danger"
+                        onclick="deleteProduct(${p.id})"
+                    >
+                        حذف المنتج
+                    </button>
+
+                </div>
+
+            </div>
+            `;
+
+        }).join("");
+}
+
+
+function deleteProduct(id){
+
+    if(!adminLogged) return;
+
+    if(!confirm("هل تريد حذف هذا المنتج؟")){
+        return;
+    }
+
+    products =
+        products.filter(p => p.id !== id);
+
+    saveProducts();
+
+    renderAdminProducts();
+    renderProducts();
+    renderHome();
+}
+
+
+/* ==========================
+   تحديث الواجهة
+========================== */
+
+function updateHeader(){
+
+    const logged =
+        !!currentUser;
+
+    document.getElementById("loginBtn").style.display =
+        logged ? "none" : "inline-block";
+
+    document.getElementById("registerBtn").style.display =
+        logged ? "none" : "inline-block";
+
+    document.getElementById("accountBtn").style.display =
+        logged ? "inline-block" : "none";
+}
+
+
+/* ==========================
+   أدوات
+========================== */
+
+function formatNumber(number){
+
+    return Number(number).toLocaleString("ar-YE");
+}
+
+
+function escapeHtml(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* ==========================
+   تشغيل الموقع
+========================== */
+
+updateHeader();
+renderHome();
+renderProducts();
+renderCart();
+
+</script>
+
+</body>
+</html>
